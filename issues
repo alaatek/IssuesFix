@@ -1,2 +1,24 @@
 Cordova FCM Problem
 https://github.com/fechanique/cordova-plugin-fcm/issues/213
+
+Consegui resolver o problema, alterando o arquivo: plugins/cordova-plugin-fcm/scripts/fcm_config_files_process.js
+
+// change
+var strings = fs.readFileSync("platforms/android/res/values/strings.xml").toString();
+// to
+var strings = fs.readFileSync("platforms/android/app/src/main/res/values/strings.xml").toString();
+
+// AND
+
+//change
+fs.writeFileSync("platforms/android/res/values/strings.xml", strings);
+
+//to
+fs.writeFileSync("platforms/android/app/src/main/res/values/strings.xml", strings);
+copie o arquivo google-services.json para os seguintes diretórios:
+
+platforms/android/google-services.json
+platforms/android/app/google-services.json
+Obs:
+cordova (Cordova CLI) : 8.0.0
+Cordova Platforms : android 7.0.0
